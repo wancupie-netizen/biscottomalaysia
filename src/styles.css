@@ -1,0 +1,119 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-cream: var(--cream);
+  --color-soft-pink: var(--soft-pink);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --shadow-soft: 0 8px 24px -8px color-mix(in oklab, var(--primary) 22%, transparent);
+  --shadow-card: 0 4px 18px -6px color-mix(in oklab, var(--primary) 15%, transparent);
+  --gradient-hero: linear-gradient(135deg, var(--soft-pink), color-mix(in oklab, var(--primary) 18%, var(--cream)));
+}
+
+:root {
+  --radius: 1rem;
+  /* Pink/Cream dessert boutique palette */
+  --background: oklch(0.985 0.012 60); /* cream FFF8F3 */
+  --foreground: oklch(0.28 0.04 25);   /* dark text 3D2B2B */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.28 0.04 25);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.28 0.04 25);
+  --primary: oklch(0.68 0.2 10);       /* pink FF5C8A */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.035 10);   /* soft pink */
+  --secondary-foreground: oklch(0.4 0.1 15);
+  --muted: oklch(0.96 0.012 60);
+  --muted-foreground: oklch(0.52 0.04 25);
+  --accent: oklch(0.93 0.06 12);
+  --accent-foreground: oklch(0.32 0.08 15);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0.02 30);
+  --input: oklch(0.92 0.02 30);
+  --ring: oklch(0.68 0.2 10);
+  --cream: oklch(0.985 0.012 60);
+  --soft-pink: oklch(0.95 0.035 10);
+  --whatsapp: oklch(0.68 0.16 150);
+  --whatsapp-foreground: oklch(1 0 0);
+}
+
+.dark {
+  --background: oklch(0.985 0.012 60);
+  --foreground: oklch(0.28 0.04 25);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.28 0.04 25);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.28 0.04 25);
+  --primary: oklch(0.68 0.2 10);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.035 10);
+  --secondary-foreground: oklch(0.4 0.1 15);
+  --muted: oklch(0.96 0.012 60);
+  --muted-foreground: oklch(0.52 0.04 25);
+  --accent: oklch(0.93 0.06 12);
+  --accent-foreground: oklch(0.32 0.08 15);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0.02 30);
+  --input: oklch(0.92 0.02 30);
+  --ring: oklch(0.68 0.2 10);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility input {
+  display: block;
+  width: 100%;
+  border-radius: 0.875rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--color-foreground);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 18%, transparent);
+  }
+}
