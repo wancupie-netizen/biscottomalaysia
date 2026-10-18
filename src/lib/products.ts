@@ -248,6 +248,17 @@ export const products: Product[] = [
 
   // MINI DESSERT
   {
+    id: "jelly-kelapa",
+    name: "Jelly Kelapa",
+    description: "Soft, refreshing coconut jelly with a delicate coconut flavour. Best enjoyed chilled. Minimum order: 50 pcs.",
+    image: "https://res.cloudinary.com/drder1b6v/image/upload/v1792315529/56.Jelly%20Kelapa.webp",
+    category: "Mini Dessert",
+    variants: [
+      { label: "50 pcs (RM1.20/pc)", price: 60 },
+      { label: "100 pcs (RM1.00/pc)", price: 100 },
+    ],
+  },
+  {
     id: "mini-tiramisu",
     name: "Mini Tiramisu",
     description: "Mini tiramisu, minimum 30 pcs. Perfect for group servings.",
