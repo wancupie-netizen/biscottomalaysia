@@ -30,6 +30,13 @@ export function CartDrawer() {
     };
   }, [open]);
 
+  const hasEstimatedPrices = items.some((item) => Boolean(item.product.priceNote));
+  const priceNotes = [...new Set(
+    items
+      .filter((item) => item.product.priceNote)
+      .map((item) => item.product.name + ": " + item.product.priceNote),
+  )].join("\n");
+
   if (!open) return null;
 
   const sendWhatsApp = (e: React.FormEvent) => {
@@ -40,11 +47,11 @@ export function CartDrawer() {
       .map(
         (i) =>
           `• ${i.product.name}\n  Option: ${i.variant.label}\n  Quantity: ${i.quantity}\n  Price: ${
-            i.product.customQuote ? "Custom Quote" : formatRM(i.variant.price * i.quantity)
+            i.product.customQuote ? "Custom Quote" : (i.product.priceNote ? "From " : "") + formatRM(i.variant.price * i.quantity)
           }`,
       )
       .join("\n\n");
-    const msg = `*NEW ORDER · BISCOTTO MALAYSIA*\n\nName: ${form.name}\nPhone: ${form.phone}\nMethod: ${form.mode}\n${dateLabel}: ${format(form.date, "d MMMM yyyy")}\nAddress: ${form.address || "-"}\nNotes: ${form.notes || "-"}\n\n====================\nORDER SUMMARY\n====================\n\n${lines}\n\n*Total: ${formatRM(subtotal)}*\n\nThank you.`;
+    const msg = `*NEW ORDER · BISCOTTO MALAYSIA*\n\nName: ${form.name}\nPhone: ${form.phone}\nMethod: ${form.mode}\n${dateLabel}: ${format(form.date, "d MMMM yyyy")}\nAddress: ${form.address || "-"}\nNotes: ${form.notes || "-"}\n\n====================\nORDER SUMMARY\n====================\n\n${lines}\n\n*${hasEstimatedPrices ? "Estimated total (from)" : "Total"}: ${formatRM(subtotal)}*${priceNotes ? "\n\n" + priceNotes : ""}\n\nThank you.`;
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
     clear();
@@ -73,6 +80,13 @@ export function CartDrawer() {
             <X className="size-4" />
           </button>
         </header>
+
+        {hasEstimatedPrices && (
+          <p className="border-b border-border bg-soft-pink px-5 py-3 text-xs text-primary">
+            Bento Cake prices start from RM28 per cake. Final price depends on design
+            and will be confirmed via WhatsApp.
+          </p>
+        )}
 
         {checkout ? (
           <form onSubmit={sendWhatsApp} className="flex min-h-0 flex-1 flex-col">
@@ -141,7 +155,7 @@ export function CartDrawer() {
             </div>
             <div className="border-t border-border p-4">
               <div className="mb-3 flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Subtotal</span>
+                <span className="text-muted-foreground">{hasEstimatedPrices ? "Estimated subtotal (from)" : "Subtotal"}</span>
                 <span className="text-lg font-bold text-primary">{formatRM(subtotal)}</span>
               </div>
               <button
@@ -182,6 +196,9 @@ export function CartDrawer() {
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
                             <div className="truncate text-sm font-semibold">{i.product.name}</div>
+                            {i.product.priceNote && (
+                              <p className="mt-1 text-xs text-primary">{i.product.priceNote}</p>
+                            )}
                             <div className="text-xs text-muted-foreground">
                               {i.product.customQuote
                                 ? "Custom Quote"
@@ -245,7 +262,7 @@ export function CartDrawer() {
             {items.length > 0 && (
               <div className="border-t border-border p-4">
                 <div className="mb-3 flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Subtotal</span>
+                  <span className="text-muted-foreground">{hasEstimatedPrices ? "Estimated subtotal (from)" : "Subtotal"}</span>
                   <span className="text-lg font-bold text-primary">{formatRM(subtotal)}</span>
                 </div>
                 <button

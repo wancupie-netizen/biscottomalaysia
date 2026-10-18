@@ -3,6 +3,7 @@ import { X, Minus, Plus, Check, ShoppingCart } from "lucide-react";
 import type { Product, Variant } from "@/lib/products";
 import { formatRM } from "@/lib/products";
 import { useCart } from "@/lib/cart";
+import { ProductGallery } from "./ProductGallery";
 
 export function ProductModal({
   product,
@@ -52,23 +53,21 @@ export function ProductModal({
           <X className="size-4" />
         </button>
 
-        {/* IMAGE: shorter on mobile so variants are visible above the fold */}
-        <div className="shrink-0 overflow-hidden bg-soft-pink">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="h-40 w-full object-cover sm:h-72"
-          />
-        </div>
+        <ProductGallery key={product.id} product={product} />
 
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto p-5 sm:p-6">
           <div className="flex items-start justify-between gap-3">
             <h2 className="text-xl font-bold text-foreground sm:text-2xl">{product.name}</h2>
             <span className="shrink-0 text-lg font-bold text-primary sm:text-xl">
-              {product.customQuote ? "Custom Quote" : formatRM(variant.price)}
+              {product.customQuote ? "Custom Quote" : (product.priceNote ? "from " : "") + formatRM(variant.price)}
             </span>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">{product.description}</p>
+          {product.priceNote && (
+            <p className="mt-3 rounded-xl bg-soft-pink p-3 text-sm font-medium text-primary">
+              {product.priceNote}
+            </p>
+          )}
 
           <div className="mt-5">
             <div className="mb-2 text-sm font-semibold text-foreground">Select Option</div>
@@ -96,7 +95,7 @@ export function ProductModal({
                       {v.label}
                     </span>
                     <span className="font-semibold text-primary">
-                      {product.customQuote ? "Custom Quote" : formatRM(v.price)}
+                      {product.customQuote ? "Custom Quote" : (product.priceNote ? "from " : "") + formatRM(v.price)}
                     </span>
                   </button>
                 );
@@ -136,7 +135,7 @@ export function ProductModal({
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-soft transition hover:brightness-105"
           >
             <ShoppingCart className="size-4" />
-            Add to Cart · {product.customQuote ? "Custom Quote" : formatRM(total)}
+            Add to Cart · {product.customQuote ? "Custom Quote" : (product.priceNote ? "from " : "") + formatRM(total)}
           </button>
         </div>
       </div>

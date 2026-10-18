@@ -6,6 +6,8 @@ export type Product = {
   name: string;
   description: string;
   image: string;
+  images?: string[];
+  priceNote?: string;
   category: Category;
   variants: Variant[];
   bestseller?: boolean;
@@ -154,6 +156,29 @@ export const products: Product[] = [
   },
 
   // CAKES
+  {
+    id: "bento-cake",
+    name: "Bento Cake",
+    description: "Includes a transparent bento box, cake knife, and candle.",
+    image: "https://res.cloudinary.com/drder1b6v/image/upload/v1792340495/bento_cake_007_nqwam8.webp",
+    images: [
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340495/bento_cake_007_nqwam8.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340494/bento_cake_005_glatme.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340492/bento_cake_001_i9mdfp.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340492/bento_cake_004_cnfj4z.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340491/bento_cake_008_z1ivoo.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340496/bento_cake_002_ywmhaa.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340497/bento_cake_006_dmoa1a.webp",
+      "https://res.cloudinary.com/drder1b6v/image/upload/v1792340491/bento_cake_003_wdupgw.webp",
+    ],
+    category: "Cakes",
+    priceNote: "RM28-RM45 depending on design. Final price will be confirmed via WhatsApp.",
+    variants: [
+      { label: "Moist Chocolate Cake", price: 28 },
+      { label: "Strawberry Shortcake", price: 28 },
+      { label: "Blueberry Shortcake", price: 28 },
+    ],
+  },
   {
     id: "cheesecake-brownies-8x8",
     name: "Cheesecake Brownies 8x8 inch",
